@@ -88,6 +88,22 @@ test('exposes "structuredClone"', async () => {
   expect(chunks).toEqual(['hello'])
 })
 
+test('exposes "EventTarget"', () => {
+  expect(globalThis).toHaveProperty('EventTarget')
+  expect(() => new EventTarget()).not.toThrow()
+
+  const target = new EventTarget()
+  const symbols = Object.getOwnPropertySymbols(target).map(
+    (symbol) => symbol.description,
+  )
+
+  // EventTarget must not be implemented by JSDOM.
+  expect(symbols).not.toContain('impl')
+
+  // In Node.js, EventTarget keeps events behind the kEvents symbol.
+  expect(symbols).toContain('kEvents')
+})
+
 test('exposes "Event"', () => {
   expect(globalThis).toHaveProperty('Event')
   expect(() => new Event('click')).not.toThrow()
@@ -112,7 +128,7 @@ test('exposes "Event"', () => {
 })
 
 test('exposes "MessageEvent"', () => {
-  expect(globalThis).toHaveProperty('Event')
+  expect(globalThis).toHaveProperty('MessageEvent')
   expect(() => new MessageEvent('click')).not.toThrow()
 
   const event = new MessageEvent('message')
