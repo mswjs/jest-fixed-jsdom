@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "A superset of the JSDOM environment for Jest that respects Node.js globals.",
   "scripts": {
-    "test": "exit 1"
+    "test": "jest"
   },
   "license": "MIT",
   "homepage": "https://github.com/mswjs/jest-fixed-jsdom#readme",
@@ -38,6 +38,7 @@
     "mswjs"
   ],
   "devDependencies": {
+    "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0"
   },
   "peerDependencies": {
