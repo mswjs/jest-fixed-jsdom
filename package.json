@@ -36,5 +36,11 @@
     "jsdom",
     "msw",
     "mswjs"
-  ]
+  ],
+  "devDependencies": {
+    "jest-environment-jsdom": "^29.7.0"
+  },
+  "peerDependencies": {
+    "jest-environment-jsdom": "*"
+  }
 }
