@@ -1,23 +1,59 @@
 <h1 align="center">jest-fixed-jsdom</h1>
-<p align="center">This library helps re-attach missing NodeJS globals definitions in JSDOM that Jest strips out</p>
+<p align="center">A superset of the JSDOM environment for Jest that respects Node.js globals.</p>
 
 ## Motivation
 
-Jest strips out a number of NodeJS globals that are used in tests and libraries involving JSDOM, such as structuredClone, ReadableStream, and so on. This library patches these globals back in - there is no polyfilling or mocking involved, it simply re-attaches the missing globals to the JSDOM environment. If you've ever come across errors such as `ReferenceError: ReadableStream is not defined` or `ReferenceError: structuredClone is not defined`, this library is for you. If you were previously using (undici)[https://www.npmjs.com/package/undici] purely to solve this, you will no longer need it. 
+When you use Jest with JSDOM you are getting a broken test environment. Some Node.js globals cease to exist (e.g. `Request`, `Response`, `TextEncoder`, `TextDecoder`, `ReadableStream`<sup><a href="https://github.com/mswjs/msw/issues/1916">1</a></sup>), while others stop behaving correctly (e.g. `Event`, `MessageEvent`<sup><a href="https://github.com/nodejs/undici/issues/2663">2</a></sup>, `structuredClone()`<sup><a href="https://github.com/mswjs/msw/issues/1931">3</a></sup>). That is caused by `jest-environment-jsdom` and JSDOM relying on polyfills to implement standard APIs that have been available globally both in the browser and in Node.js for years.
 
-## Installation
+Here's a piece of valid JavaScript that works in both the browser and Node.js but fails in Jest/JSDOM:
 
-`npm install jest-fixed-jsdom -D`
+```js
+new TextEncoder().encode('hello')
+```
 
-## Configuring your jest environment to use jest-fixed-jsdom
+```
+ReferenceError: TextEncoder is not defined
+```
 
-You will need to add/modify two properties in your jest configuration to use jest-fixed-jsdom. 
+**We strongly believe that a valid JavaScript code must compile regardless of what test environment you are using**. In fact, having a proper test environment is crucial to get any kind of value from your tests. Jest/JSDOM take that already working environment away from you.
 
-```json
-{
-  "testEnvironment": "jest-fixed-jsdom"
+We've built this project aims to fix that problem, restoring the global APIs that are present in both environments, providing better interoperability, stability, and consistent runtime behavior.
+
+## Changes
+
+This project "fixes" the following global APIs, overriding whichever polyfills they have with respective Node.js globals:
+
+- `EventTarget`
+- `Event`
+- `MessageEvent`
+- `fetch()`
+- `Blob`
+- `FormData`
+- `Headers`
+- `Request`
+- `Response`
+- `ReadableStream`
+- `TextEncoder`
+- `TextDecoder`
+- `structuredClone()`
+
+## Getting started
+
+### Install
+
+```sh
+npm i jest-fixed-jsdom --save-dev
+```
+
+### Configure Jest
+
+In your `jest.config.js`, set the `testEnvironment` option to `jest-fixed-jsdom`:
+
+```js
+// jest.config.js
+module.exports = {
+  testEnvironment: 'jest-fixed-jsdom',
 }
 ```
 
-Setting `testEnvironment` to `jest-fixed-jsdom` will tell Jest to use jest-fixed-jsdom as the test environment. Setting `customExportConditions` to an empty array will stop JSDOM from using the browser environment to load exports.
-
+> You can use any other `testEnvironmentOptions` you need. Those will be forwarded to the underlying `jest-environment-jsdom`.
