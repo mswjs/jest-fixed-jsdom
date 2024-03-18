@@ -1,26 +1,25 @@
-const JSDOMEnvironment = require("jest-environment-jsdom").default;
+const JSDOMEnvironment = require('jest-environment-jsdom').default
 // or import JSDOMEnvironment from 'jest-environment-jsdom'
 // if you are using ESM modules
 
 class JSDOMEnvironmentExtended extends JSDOMEnvironment {
-    constructor(...args) {
-        super(...args);
+  constructor(...args) {
+    super(...args)
 
-        this.global.ReadableStream = ReadableStream;
-        this.global.TextDecoder = TextDecoder;
-        this.global.TextEncoder = TextEncoder;
+    this.global.TextDecoder = TextDecoder
+    this.global.TextEncoder = TextEncoder
+    this.global.ReadableStream = ReadableStream
 
-        this.global.Blob = Blob;
-        this.global.File = File;
-        this.global.Headers = Headers;
-        this.global.FormData = FormData;
-        this.global.Request = Request;
-        this.global.Response = Response;
-        this.global.Request = Request;
-        this.global.Response = Response;
-        this.global.fetch = fetch;
-        this.global.structuredClone = structuredClone;
-    }
+    this.global.Blob = Blob
+    this.global.Headers = Headers
+    this.global.FormData = FormData
+    this.global.Request = Request
+    this.global.Response = Response
+    this.global.Request = Request
+    this.global.Response = Response
+    this.global.fetch = fetch
+    this.global.structuredClone = structuredClone
+  }
 }
 
-module.exports = JSDOMEnvironmentExtended;
+module.exports = JSDOMEnvironmentExtended
