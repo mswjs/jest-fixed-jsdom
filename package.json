@@ -1,0 +1,40 @@
+{
+  "name": "jest-fixed-jdom",
+  "version": "0.0.0",
+  "description": "A superset of the JSDOM environment for Jest that respects Node.js globals.",
+  "scripts": {
+    "test": "exit 1"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/mswjs/jest-fixed-jsdom#readme",
+  "bugs": "https://github.com/mswjs/jest-fixed-jsdom/issues",
+  "author": [
+    {
+      "name": "Joel Daros",
+      "url": "https://github.com/joel-daros"
+    },
+    {
+      "name": "Tobias Hochgürtel",
+      "url": "https://github.com/tobiashochguertel"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "JamesZoft",
+      "url": "https://github.com/JamesZoft"
+    },
+    {
+      "name": "Artem Zakharchenko",
+      "url": "https://github.com/kettanaito"
+    }
+  ],
+  "keywords": [
+    "testing",
+    "environment",
+    "node",
+    "jest",
+    "jsdom",
+    "msw",
+    "mswjs"
+  ]
+}
