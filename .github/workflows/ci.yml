@@ -27,6 +27,11 @@ jobs:
         with:
           version: 7.12
 
+      - name: Setup Git
+        run: |
+          git config --local user.name "Artem Zakharchenko"
+          git config --local user.email "kettanaito@gmail.com"
+
       - name: Install dependencies
         run: pnpm install
 
