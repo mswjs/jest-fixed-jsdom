@@ -8,10 +8,16 @@
   "license": "MIT",
   "homepage": "https://github.com/mswjs/jest-fixed-jsdom#readme",
   "bugs": "https://github.com/mswjs/jest-fixed-jsdom/issues",
-  "author": {
-    "name": "Tobias Hochgürtel",
-    "url": "https://github.com/tobiashochguertel"
-  },
+  "author": [
+    {
+      "name": "Joel Daros",
+      "url": "https://github.com/joel-daros"
+    },
+    {
+      "name": "Tobias Hochgürtel",
+      "url": "https://github.com/tobiashochguertel"
+    }
+  ],
   "contributors": [
     {
       "name": "JamesZoft",
