@@ -10,6 +10,10 @@ class JSDOMEnvironmentExtended extends JSDOMEnvironment {
     this.global.TextEncoder = TextEncoder
     this.global.ReadableStream = ReadableStream
 
+    this.global.EventTarget = EventTarget
+    this.global.Event = Event
+    this.global.MessageEvent = MessageEvent
+
     this.global.Blob = Blob
     this.global.Headers = Headers
     this.global.FormData = FormData
