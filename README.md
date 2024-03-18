@@ -15,10 +15,7 @@ You will need to add/modify two properties in your jest configuration to use jes
 
 ```json
 {
-  "testEnvironment": "jest-fixed-jsdom",
-  "testEnvironmentOptions": {
-    "customExportConditions": [""],
-  }
+  "testEnvironment": "jest-fixed-jsdom"
 }
 ```
 
