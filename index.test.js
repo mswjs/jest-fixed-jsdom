@@ -87,3 +87,65 @@ test('exposes "structuredClone"', async () => {
   }
   expect(chunks).toEqual(['hello'])
 })
+
+test('exposes "EventTarget"', () => {
+  expect(globalThis).toHaveProperty('EventTarget')
+  expect(() => new EventTarget()).not.toThrow()
+
+  const target = new EventTarget()
+  const symbols = Object.getOwnPropertySymbols(target).map(
+    (symbol) => symbol.description,
+  )
+
+  // EventTarget must not be implemented by JSDOM.
+  expect(symbols).not.toContain('impl')
+
+  // In Node.js, EventTarget keeps events behind the kEvents symbol.
+  expect(symbols).toContain('kEvents')
+})
+
+test('exposes "Event"', () => {
+  expect(globalThis).toHaveProperty('Event')
+  expect(() => new Event('click')).not.toThrow()
+
+  const event = new Event('click')
+  const symbols = Object.getOwnPropertySymbols(event).map(
+    (symbol) => symbol.description,
+  )
+
+  // The "impl" symbol is added by JSDOM.
+  expect(symbols).not.toContain('impl')
+  // Node.js expects events to have the "type" symbol.
+  expect(symbols).toContain('type')
+
+  /**
+   * Perform a basic "isEvent()" check that Node.js has.
+   * @see https://github.com/nodejs/node/blob/3a456c6db802b5b25594d3a9d235d4989e9f7829/lib/internal/event_target.js#L96
+   */
+  expect(event[symbols.find((description) => description === 'type')]).toBe(
+    'click',
+  )
+})
+
+test('exposes "MessageEvent"', () => {
+  expect(globalThis).toHaveProperty('MessageEvent')
+  expect(() => new MessageEvent('click')).not.toThrow()
+
+  const event = new MessageEvent('message')
+  const symbols = Object.getOwnPropertySymbols(event).map(
+    (symbol) => symbol.description,
+  )
+
+  // The "impl" symbol is added by JSDOM.
+  expect(symbols).not.toContain('impl')
+  // Node.js expects events to have the "type" symbol.
+  expect(symbols).toContain('type')
+
+  /**
+   * Perform a basic "isEvent()" check that Node.js has.
+   * @see https://github.com/nodejs/node/blob/3a456c6db802b5b25594d3a9d235d4989e9f7829/lib/internal/event_target.js#L96
+   */
+  expect(event[symbols.find((description) => description === 'type')]).toBe(
+    'message',
+  )
+})
