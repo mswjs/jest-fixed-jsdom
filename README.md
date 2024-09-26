@@ -23,9 +23,6 @@ We've built this project aims to fix that problem, restoring the global APIs tha
 
 This project "fixes" the following global APIs, overriding whichever polyfills they have with respective Node.js globals:
 
-- `EventTarget`
-- `Event`
-- `MessageEvent`
 - `fetch()`
 - `Blob`
 - `FormData`
