@@ -1,3 +1,5 @@
+const { URL: BuiltinURL } = require('node:url')
+
 test('exposes "Blob"', async () => {
   expect(globalThis).toHaveProperty('Blob')
   expect(() => new Blob()).not.toThrow()
@@ -88,3 +90,7 @@ test('exposes "structuredClone"', async () => {
   expect(chunks).toEqual(['hello'])
 })
 
+test('exposes "URL"', () => {
+  expect(globalThis).toHaveProperty('URL')
+  expect(new URL('http://localhost')).toBeInstanceOf(BuiltinURL)
+})
