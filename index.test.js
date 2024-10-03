@@ -132,3 +132,13 @@ test('exposes "URL"', () => {
   expect(globalThis).toHaveProperty('URL')
   expect(new URL('http://localhost')).toBeInstanceOf(BuiltinURL)
 })
+
+test('exposes "URLSearchParams" and makes it mockable', () => {
+  jest
+    .spyOn(URLSearchParams.prototype, 'has')
+    .mockImplementation((key) => key === 'mocked_flag')
+
+  expect(globalThis).toHaveProperty('URLSearchParams')
+  expect(new URL('http://localhost?other_non_mocked_flag').searchParams.has('other_non_mocked_flag')).toBe(false)
+  expect(new URL('http://localhost?other_non_mocked_flag').searchParams.has('mocked_flag')).toBe(true)
+})
