@@ -32,6 +32,8 @@ This project "fixes" the following global APIs, overriding whichever polyfills t
 - `ReadableStream`
 - `TextEncoder`
 - `TextDecoder`
+- `TextEncoderStream`
+- `TextDecoderStream`
 - `structuredClone()`
 - `URL`
 
