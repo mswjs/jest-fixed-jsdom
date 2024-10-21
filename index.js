@@ -6,6 +6,8 @@ class FixedJSDOMEnvironment extends JSDOMEnvironment {
 
     this.global.TextDecoder = TextDecoder
     this.global.TextEncoder = TextEncoder
+    this.global.TextDecoderStream = TextDecoderStream
+    this.global.TextEncoderStream = TextEncoderStream
     this.global.ReadableStream = ReadableStream
 
     this.global.Blob = Blob

@@ -22,6 +22,44 @@ test('exposes "TextDecoder"', () => {
   ).toBe('hello')
 })
 
+test('exposes "TextEncoderStream"', async () => {
+  expect(globalThis).toHaveProperty('TextEncoderStream')
+  expect(() => new TextEncoderStream()).not.toThrow()
+
+  const stream = new TextEncoderStream()
+  const writer = stream.writable.getWriter()
+  writer.write('hello')
+  writer.close()
+
+  const reader = stream.readable.getReader()
+  const chunks = []
+  while (true) {
+    const { done, value } = await reader.read()
+    if (done) break
+    chunks.push(...value)
+  }
+  expect(Buffer.from(chunks)).toEqual(Buffer.from(new Uint8Array([104, 101, 108, 108, 111])))
+})
+
+test('exposes "TextDecoderStream"', async () => {
+  expect(globalThis).toHaveProperty('TextDecoderStream')
+  expect(() => new TextDecoderStream()).not.toThrow()
+
+  const stream = new TextDecoderStream()
+  const writer = stream.writable.getWriter()
+  writer.write(new Uint8Array([104, 101, 108, 108, 111]))
+  writer.close()
+
+  const reader = stream.readable.getReader()
+  const chunks = []
+  while (true) {
+    const { done, value } = await reader.read()
+    if (done) break
+    chunks.push(value)
+  }
+  expect(chunks.join('')).toBe('hello')
+})
+
 test('exposes "ReadableStream"', () => {
   expect(globalThis).toHaveProperty('ReadableStream')
   expect(() => new ReadableStream()).not.toThrow()
