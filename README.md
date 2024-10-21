@@ -36,6 +36,7 @@ This project "fixes" the following global APIs, overriding whichever polyfills t
 - `TextDecoderStream`
 - `structuredClone()`
 - `URL`
+- `URLSearchParams`
 
 ## Getting started
 
