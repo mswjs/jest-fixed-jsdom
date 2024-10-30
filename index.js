@@ -19,6 +19,8 @@ class FixedJSDOMEnvironment extends JSDOMEnvironment {
     this.global.structuredClone = structuredClone
     this.global.URL = URL
     this.global.URLSearchParams = URLSearchParams
+
+    this.global.BroadcastChannel = BroadcastChannel
   }
 }
 
