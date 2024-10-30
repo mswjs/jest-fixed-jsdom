@@ -1,4 +1,7 @@
 const { URL: BuiltinURL } = require('node:url')
+const {
+  BroadcastChannel: BuiltinBroadcastChannel,
+} = require('node:worker_threads')
 
 test('exposes "Blob"', async () => {
   expect(globalThis).toHaveProperty('Blob')
@@ -38,7 +41,9 @@ test('exposes "TextEncoderStream"', async () => {
     if (done) break
     chunks.push(...value)
   }
-  expect(Buffer.from(chunks)).toEqual(Buffer.from(new Uint8Array([104, 101, 108, 108, 111])))
+  expect(Buffer.from(chunks)).toEqual(
+    Buffer.from(new Uint8Array([104, 101, 108, 108, 111])),
+  )
 })
 
 test('exposes "TextDecoderStream"', async () => {
@@ -139,6 +144,22 @@ test('exposes "URLSearchParams" and makes it mockable', () => {
     .mockImplementation((key) => key === 'mocked_flag')
 
   expect(globalThis).toHaveProperty('URLSearchParams')
-  expect(new URL('http://localhost?other_non_mocked_flag').searchParams.has('other_non_mocked_flag')).toBe(false)
-  expect(new URL('http://localhost?other_non_mocked_flag').searchParams.has('mocked_flag')).toBe(true)
+  expect(
+    new URL('http://localhost?other_non_mocked_flag').searchParams.has(
+      'other_non_mocked_flag',
+    ),
+  ).toBe(false)
+  expect(
+    new URL('http://localhost?other_non_mocked_flag').searchParams.has(
+      'mocked_flag',
+    ),
+  ).toBe(true)
+})
+
+test('exposes "BroadcastChannel"', () => {
+  expect(globalThis).toHaveProperty('BroadcastChannel')
+
+  const channel = new BroadcastChannel('foo')
+  expect(channel).toBeInstanceOf(BuiltinBroadcastChannel)
+  channel.unref()
 })
