@@ -42,6 +42,7 @@ This project "fixes" the following global APIs, overriding whichever polyfills t
 - `structuredClone()`
 - `URL`
 - `URLSearchParams`
+- `BroadcastChannel`
 
 ## Getting started
 
