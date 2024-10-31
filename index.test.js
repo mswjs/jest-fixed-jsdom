@@ -163,3 +163,9 @@ test('exposes "BroadcastChannel"', () => {
   expect(channel).toBeInstanceOf(BuiltinBroadcastChannel)
   channel.unref()
 })
+
+test('exposes "TransformStream"', () => {
+  expect(globalThis).toHaveProperty('TransformStream')
+  const channel = new TransformStream()
+  expect(channel).toBeInstanceOf(TransformStream)
+})
