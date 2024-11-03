@@ -2,6 +2,7 @@ const { URL: BuiltinURL } = require('node:url')
 const {
   BroadcastChannel: BuiltinBroadcastChannel,
 } = require('node:worker_threads')
+const { TransformStream: BuiltinTransformStream } = require('node:stream/web')
 
 test('exposes "Blob"', async () => {
   expect(globalThis).toHaveProperty('Blob')
@@ -162,4 +163,10 @@ test('exposes "BroadcastChannel"', () => {
   const channel = new BroadcastChannel('foo')
   expect(channel).toBeInstanceOf(BuiltinBroadcastChannel)
   channel.unref()
+})
+
+test('exposes "TransformStream"', () => {
+  expect(globalThis).toHaveProperty('TransformStream')
+  const channel = new TransformStream()
+  expect(channel).toBeInstanceOf(BuiltinTransformStream)
 })

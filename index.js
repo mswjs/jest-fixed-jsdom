@@ -21,6 +21,7 @@ class FixedJSDOMEnvironment extends JSDOMEnvironment {
     this.global.URLSearchParams = URLSearchParams
 
     this.global.BroadcastChannel = BroadcastChannel
+    this.global.TransformStream = TransformStream
   }
 }
 

@@ -43,6 +43,7 @@ This project "fixes" the following global APIs, overriding whichever polyfills t
 - `URL`
 - `URLSearchParams`
 - `BroadcastChannel`
+- `TransformStream`
 
 ## Getting started
 
