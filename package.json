@@ -1,6 +1,6 @@
 {
   "name": "jest-fixed-jsdom",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "A superset of the JSDOM environment for Jest that respects Node.js globals.",
   "main": "./index.js",
   "scripts": {
