@@ -27,6 +27,8 @@ class FixedJSDOMEnvironment extends JSDOMEnvironment {
     this.global.Request = Request
     this.global.Response = Response
     this.global.fetch = fetch
+    this.global.AbortController = AbortController
+    this.global.AbortSignal = AbortSignal
     this.global.structuredClone = structuredClone
     this.global.URL = URL
     this.global.URLSearchParams = URLSearchParams
