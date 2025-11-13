@@ -44,6 +44,7 @@ This project "fixes" the following global APIs, overriding whichever polyfills t
 - `URLSearchParams`
 - `BroadcastChannel`
 - `TransformStream`
+- `WritableStream`
 
 ## Getting started
 

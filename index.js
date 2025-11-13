@@ -35,6 +35,7 @@ class FixedJSDOMEnvironment extends JSDOMEnvironment {
 
     this.global.BroadcastChannel = BroadcastChannel
     this.global.TransformStream = TransformStream
+    this.global.WritableStream = WritableStream
   }
 }
 
