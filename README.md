@@ -30,6 +30,7 @@ This project "fixes" the following global APIs, overriding whichever polyfills t
 
 - `fetch()`
 - `Blob`
+- `File`
 - `FormData`
 - `Headers`
 - `Request`

@@ -1,3 +1,4 @@
+const { File: BuiltinFile } = require('node:buffer')
 const { URL: BuiltinURL } = require('node:url')
 const {
   BroadcastChannel: BuiltinBroadcastChannel,
@@ -8,6 +9,17 @@ test('exposes "Blob"', async () => {
   expect(globalThis).toHaveProperty('Blob')
   expect(() => new Blob()).not.toThrow()
   await expect(new Blob(['hello']).text()).resolves.toBe('hello')
+})
+
+test('exposes "File"', async () => {
+  expect(globalThis).toHaveProperty('File')
+  expect(() => new File(['hello'], 'hello.txt')).not.toThrow()
+
+  const file = new File(['hello'], 'hello.txt')
+  expect(file).toBeInstanceOf(BuiltinFile)
+  expect(file).toBeInstanceOf(Blob)
+  expect(file.name).toBe('hello.txt')
+  await expect(file.text()).resolves.toBe('hello')
 })
 
 test('exposes "TextEncoder"', () => {

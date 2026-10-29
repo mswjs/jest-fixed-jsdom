@@ -1,4 +1,5 @@
 const JSDOMEnvironment = require('jest-environment-jsdom').default
+const { File } = require('node:buffer')
 
 class FixedJSDOMEnvironment extends JSDOMEnvironment {
   constructor(...args) {
@@ -22,6 +23,8 @@ class FixedJSDOMEnvironment extends JSDOMEnvironment {
     this.global.ReadableStream = ReadableStream
 
     this.global.Blob = Blob
+    // node:buffer only exports File from Node 18.13; assigning undefined would overwrite jsdom's File
+    if (File) this.global.File = File
     this.global.Headers = Headers
     this.global.FormData = FormData
     this.global.Request = Request
