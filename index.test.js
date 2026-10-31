@@ -176,3 +176,56 @@ test('exposes "WritableStream"', () => {
   const channel = new WritableStream()
   expect(channel).toBeInstanceOf(BuiltinWritableStream)
 })
+
+test('supports Node.js "AbortSignal" in "addEventListener()"', () => {
+  const target = document.createElement('div')
+  const controller = new AbortController()
+  const listener = jest.fn()
+
+  target.addEventListener('click', listener, { signal: controller.signal })
+  target.click()
+  expect(listener).toHaveBeenCalledTimes(1)
+
+  controller.abort()
+  target.click()
+  expect(listener).toHaveBeenCalledTimes(1)
+})
+
+test('supports Node.js "AbortSignal" in "window.addEventListener()"', () => {
+  const controller = new AbortController()
+  const listener = jest.fn()
+
+  window.addEventListener('test', listener, { signal: controller.signal })
+  window.dispatchEvent(new Event('test'))
+  expect(listener).toHaveBeenCalledTimes(1)
+
+  controller.abort()
+  window.dispatchEvent(new Event('test'))
+  expect(listener).toHaveBeenCalledTimes(1)
+})
+
+test('does not add the event listener if the Node.js "AbortSignal" is already aborted', () => {
+  const target = document.createElement('div')
+  const listener = jest.fn()
+
+  target.addEventListener('click', listener, { signal: AbortSignal.abort() })
+  target.click()
+  expect(listener).not.toHaveBeenCalled()
+})
+
+test('keeps an existing event listener when the Node.js "AbortSignal" aborts', () => {
+  const target = document.createElement('div')
+  const controller = new AbortController()
+  const listener = jest.fn()
+
+  target.addEventListener('click', listener)
+  // A duplicate registration is a no-op, so the signal must not remove it.
+  target.addEventListener('click', listener, { signal: controller.signal })
+  controller.abort()
+  target.click()
+  expect(listener).toHaveBeenCalledTimes(1)
+})
+
+test('keeps the argument count check in "addEventListener()"', () => {
+  expect(() => document.body.addEventListener('click')).toThrow(TypeError)
+})
