@@ -34,6 +34,8 @@ This project "fixes" the following global APIs, overriding whichever polyfills t
 - `Headers`
 - `Request`
 - `Response`
+- `AbortController`
+- `AbortSignal`
 - `ReadableStream`
 - `TextEncoder`
 - `TextDecoder`
